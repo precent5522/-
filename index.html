@@ -167,7 +167,7 @@ h1,h2,h3,p,figure,blockquote{margin:0}h1,h2,h3{font-family:var(--font-display);f
 @keyframes paper-rise{from{opacity:.25;transform:translateY(22px) rotate(-2deg)}to{opacity:1;transform:translateY(0) rotate(-1.2deg)}}
 @keyframes paper-rise-portrait{from{opacity:.25;transform:translateY(22px) rotate(4deg)}to{opacity:1;transform:translateY(0) rotate(2deg)}}
 @media(prefers-reduced-motion:reduce){.slide:not(.cover):before,.slide:not(.cover):after{animation:none}.slide.active .slide-content,.slide.active .rule-board:before,.slide.active .board-hero:before{animation:none;clip-path:none;filter:none}.slide.active .rule-board .rule-stone,.slide.active .board-hero .go-stone,.slide.active .note-landscape,.slide.active .note-portrait{animation:none}}
-#ms-cursor,.ms-cursor-trail{display:none!important}
+.ms-cursor-trail{display:none!important}
 
 
   
@@ -420,6 +420,7 @@ body{cursor:none}
 #ms-cursor.cursor-click{transform:scale(0.7)}
 .ms-cursor-trail{position:fixed;width:10px;height:10px;margin-left:-5px;margin-top:-5px;border-radius:50%;background:var(--cursor-color,#fff);pointer-events:none;z-index:9999;transition:transform 0.15s ease,opacity 0.15s ease;opacity:0.6}
 .ms-cursor-trail.cursor-click{transform:scale(0.7)}
+#ms-cursor{width:18px;height:18px;margin-left:-9px;margin-top:-9px;background:#10100f;border:2px solid rgba(255,255,255,.94);box-shadow:0 2px 10px rgba(0,0,0,.42);animation:none!important}
 
 /* Accessibility */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}#ms-cursor{animation:none}}
@@ -5516,6 +5517,8 @@ fitSlideLayout(slides[cur]);
   var old=document.getElementById('ms-cursor');if(old)old.remove();
   var cursor=document.createElement('div');
   cursor.id='ms-cursor';
+  cursor.setAttribute('aria-hidden','true');
+  cursor.style.opacity='0';
   document.body.appendChild(cursor);
   // Create 5 trailing dots
   var trails=[];
@@ -5552,6 +5555,7 @@ fitSlideLayout(slides[cur]);
   document.addEventListener('mousemove',function(e){
     x=e.clientX;y=e.clientY;
     setCursorSuppressed(isCursorSuppressedTarget(e.target));
+    if(!cursorSuppressed&&cursorVisible){cursor.style.display='';cursor.style.opacity='1';}
   });
   window.msDriveCursorFromPresenter=function(data){
     if(!data)return;

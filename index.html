@@ -36,8 +36,22 @@ h1,h2,h3,p,figure,blockquote{margin:0}h1,h2,h3{font-family:var(--font-display);f
 .cover{background:radial-gradient(ellipse at 77% 45%,#e4dac4 0,transparent 45%),linear-gradient(125deg,#f5f0e5,#ede5d4)!important}
 .cover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 51%,rgba(245,240,229,.2) 75%,transparent);pointer-events:none}
 .cover .slide-content{padding:76px 110px;justify-content:center}
-.cover-signature{position:absolute;left:110px;top:70px;display:flex;align-items:center;gap:17px;color:var(--olive);font-size:17px;letter-spacing:.12em}
-.cover-signature img{width:60px;height:60px;object-fit:contain}
+.cover-signature{position:absolute;left:110px;top:86px;display:flex;align-items:center;gap:17px;color:var(--olive);font-size:16px;letter-spacing:.16em}
+.cover-partnership{position:absolute;right:82px;top:50px;width:860px;height:186px;z-index:3;display:grid;grid-template-columns:190px 1fr 205px;align-items:center;gap:12px}
+.cover-school{position:relative;z-index:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+.cover-school img{display:block;width:104px;height:112px;object-fit:contain;filter:drop-shadow(0 8px 12px rgba(45,38,27,.13));animation:school-seal-arrive .85s cubic-bezier(.18,.82,.22,1) both}
+.cover-school-nanhwa img{animation-delay:.2s}.cover-school-jianhua img{animation-delay:.48s}
+.cover-school-name{max-width:100%;color:#45463d;font-size:12px;font-weight:750;line-height:1.25;letter-spacing:.045em;white-space:nowrap}
+.cover-school-nanhwa .cover-school-name{font-size:10px;letter-spacing:.07em}
+.cover-partnership-link{position:absolute;left:139px;right:146px;top:26px;width:575px;height:100px;overflow:visible;pointer-events:none}
+.cover-partnership-link path{fill:none;stroke:#a43c2c;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:680;stroke-dashoffset:680;animation:school-link-draw 1.45s .45s cubic-bezier(.18,.82,.22,1) forwards}
+.cover-partnership-link .link-echo{stroke:#b39a6c;stroke-width:1;stroke-dasharray:3 8;stroke-dashoffset:0;opacity:.65}
+.cover-partnership-link circle{fill:#201f1b;stroke:#f5f0e5;stroke-width:3;transform-box:fill-box;transform-origin:center;opacity:0;animation:school-link-stone .48s 1.55s cubic-bezier(.2,.8,.2,1.2) forwards}
+.cover-join-note{position:absolute;left:50%;top:126px;transform:translateX(-50%);color:var(--olive);font-family:var(--font-display);font-size:15px;letter-spacing:.13em;white-space:nowrap;opacity:0;animation:school-link-note .6s 1.65s ease forwards}
+@keyframes school-link-draw{to{stroke-dashoffset:0}}
+@keyframes school-link-stone{0%{opacity:0;transform:scale(.2)}70%{opacity:1;transform:scale(1.25)}100%{opacity:1;transform:scale(1)}}
+@keyframes school-seal-arrive{from{opacity:0;transform:translateY(-12px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes school-link-note{to{opacity:.92}}
 .cover-copy{position:relative;z-index:2;width:730px;padding-top:38px}
 .cover-title{font-size:112px;line-height:1.12;letter-spacing:.05em;margin:0 0 30px;color:#201f1b}
 .cover-subtitle{font-size:24px;letter-spacing:.08em;color:var(--subtext);margin-bottom:24px}
@@ -514,7 +528,13 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
   <div id="deck">
 <section class="slide cover" data-id="cover" data-transition="fade" data-stagger="cascade" data-bg="light" data-speaker-notes="开场先提出问题：如果孩子愿意再下一盘棋，传承就有了下一步。今天发布的是一次校园体验及其即时反馈。">
   <div class="slide-content">
-    <div class="cover-signature"><img src="./assets/school-logo.png" alt="二条路建华华小校徽"><span>社会责任行动计划 · 成果发布</span></div>
+    <div class="cover-signature"><span>社会责任行动计划 · 成果发布</span></div>
+    <div class="cover-partnership" aria-label="曼绒南华中学与二条路建华华小携手推广围棋">
+      <div class="cover-school cover-school-nanhwa"><img src="./assets/school-logo-nanhwa.png" alt="Manjung Nan Hwa High School 校徽"><span class="cover-school-name">MANJUNG NAN HWA HIGH SCHOOL</span></div>
+      <svg class="cover-partnership-link" viewBox="0 0 575 100" aria-hidden="true"><path class="link-echo" d="M8 66 C145 3 421 3 567 66"/><path d="M8 63 C154 9 416 9 567 63"/><circle cx="287" cy="25" r="8"/></svg>
+      <div class="cover-school cover-school-jianhua"><img src="./assets/school-logo.png" alt="二条路建华华小校徽"><span class="cover-school-name">二条路建华华小</span></div>
+      <span class="cover-join-note">两所学校 · 一场围棋相遇</span>
+    </div>
     <div class="cover-copy">
       <p class="kicker red">围棋文化推广行动</p>
       <h1 class="cover-title">下一手，<br>向未来</h1>

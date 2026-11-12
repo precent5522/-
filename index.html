@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,6 +86,24 @@ h1,h2,h3,p,figure,blockquote{margin:0}h1,h2,h3{font-family:var(--font-display);f
 .album-slide.active .print-1{animation:album-photo-flip .8s .2s var(--ms-ease) forwards}.album-slide.active .print-2{animation:album-photo-flip .8s .42s var(--ms-ease) forwards}.album-slide.active .print-3{animation:album-photo-flip .8s .64s var(--ms-ease) forwards}.album-slide.active .print-4{animation:album-photo-flip .8s .86s var(--ms-ease) forwards}.album-slide.active .print-5{animation:album-photo-flip .8s 1.18s var(--ms-ease) forwards}.album-slide.active .print-6{animation:album-photo-flip .8s 1.4s var(--ms-ease) forwards}.album-slide.active .print-last{animation:album-photo-flip .8s 1.62s var(--ms-ease) forwards}
 .album-slide:not(.active) .album-print{animation:none;opacity:0;transform:rotateY(-78deg)}.album-slide:not(.active) .album-cover{animation:none;transform:rotateY(0)}
 @keyframes album-open{0%{transform:rotateY(0);filter:brightness(1)}100%{transform:rotateY(-92deg);filter:brightness(.84)}}@keyframes album-photo-flip{0%{opacity:0;transform:perspective(900px) rotateY(-72deg) translateX(-8px) scale(.97)}65%{opacity:1}100%{opacity:1;transform:perspective(900px) rotateY(0) translateX(0) scale(1)}}
+/* Photo-led album: three larger moments, then one full-size interaction story */
+.album-left{grid-template-columns:1fr;grid-template-rows:1fr}.album-left .album-print{grid-column:1;grid-row:1}
+.album-right{grid-template-columns:1fr;grid-template-rows:1fr 1fr}.album-right .print-last{grid-column:1}
+.album-slide.active .print-1{animation:album-photo-flip .8s .2s var(--ms-ease) forwards}.album-slide.active .print-2{animation:album-photo-flip .8s .55s var(--ms-ease) forwards}.album-slide.active .print-last{animation:album-photo-flip .8s .9s var(--ms-ease) forwards}
+.album-slide.active .print-3,.album-slide.active .print-4,.album-slide.active .print-5,.album-slide.active .print-6{animation:none}
+/* Guidance moment */
+.photo-story-layout{height:100%;display:grid;grid-template-columns:1.08fr .92fr;gap:72px;align-items:center}
+.photo-story-frame{position:relative;margin:0;padding:14px 14px 58px;background:#fffdf8;box-shadow:0 28px 65px rgba(45,39,30,.22),0 3px 10px rgba(45,39,30,.10);transform:rotate(-.7deg)}
+.photo-story-frame img{display:block;width:100%;height:690px;object-fit:cover;object-position:center 54%}
+.photo-story-frame figcaption{position:absolute;left:22px;right:22px;bottom:17px;display:flex;align-items:center;justify-content:space-between;gap:15px;color:var(--subtext);font-size:15px}
+.photo-story-frame figcaption b{font-family:var(--font-display);font-size:18px;color:var(--accent)}
+.photo-story-copy h2{font-size:60px;line-height:1.34;margin:12px 0 22px}
+.photo-story-copy .deck-lead{font-size:24px;line-height:1.8;max-width:630px}
+.photo-story-copy blockquote{margin:30px 0 24px;padding-left:20px;border-left:3px solid var(--accent);font-family:var(--font-display);font-size:30px;line-height:1.6;color:var(--olive)}
+.photo-story-tags{display:flex;align-items:center;gap:15px;color:var(--muted);font-size:15px;letter-spacing:.12em}.photo-story-tags i{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.meaning-mark{font-family:var(--font-display);font-size:86px;font-weight:600;line-height:1.18;letter-spacing:.12em;color:var(--accent);margin:26px 0 22px;text-shadow:4px 5px 0 rgba(164,60,44,.08)}
+.school-expectation{margin-top:12px;padding-left:13px;border-left:2px solid var(--gold);font-size:16px;line-height:1.65;color:var(--subtext)}.school-expectation span{display:block;font-size:13px;letter-spacing:.12em;color:var(--olive);font-weight:700}
+.event-review{margin-top:14px;padding-top:11px;border-top:1px solid var(--line);font-size:15px;line-height:1.6;color:var(--muted)}.event-review b{color:var(--accent);font-weight:700}
 /* Student voice */
 .voice-layout{height:100%;display:grid;grid-template-columns:1.12fr .88fr;gap:60px;align-items:center}
 .note-archive{position:relative;height:680px}.note-landscape{position:absolute;left:0;top:25px;width:770px;height:490px;padding:12px 12px 42px;background:#fffdf8;box-shadow:0 20px 45px #3027192c;transform:rotate(-1.2deg);margin:0}.note-landscape img{width:100%;height:100%;object-fit:contain;background:#e9e5d8}.note-landscape figcaption,.note-portrait figcaption{position:absolute;left:18px;right:18px;bottom:12px;font-family:var(--font-display);font-size:16px;color:var(--subtext)}
@@ -498,7 +516,7 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
       <p class="kicker red">围棋文化推广行动</p>
       <h1 class="cover-title">下一手，<br>向未来</h1>
       <p class="cover-subtitle">让一场校园体验，成为文化传承的起点</p>
-      <div class="cover-meta"><span>二条路建华华小</span><span>2026.11.11</span></div>
+      <div class="cover-meta"><span>二条路建华华小</span><span>活动 2026.11.11　／　成果发表 2026.11.12</span></div>
     </div>
     <div class="cover-board" aria-hidden="true"><span class="go-stone" data-magic-id="go-stone"></span></div>
     <div class="cover-stamp" aria-hidden="true">黑<br>白</div>
@@ -513,7 +531,7 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
       <div class="why-copy">
         <p class="kicker red">为什么开展这项行动</p>
         <h2 class="deck-title">让学生有机会<br><span class="magic-nowrap-phrase" data-magic-id="meet-go">遇见围棋</span></h2>
-        <p class="deck-lead">我们希望围棋继续走进马来西亚学生的生活，也让这份文化有机会被认识、被体验、被传下去。</p>
+        <p class="deck-lead">我们的初心，是推动围棋在马来西亚的影响力，为这份文化留下新的接触者；也希望学生从每一步落子，练习专注、思考与选择。</p>
         <blockquote class="why-quote">一盘棋里，有观察、有判断，<br>也有落子前的思考。</blockquote>
         <div class="intentions">
           <div class="intention"><b>认识围棋</b>让更多学生接触棋盘</div>
@@ -524,7 +542,7 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
     </div>
   </div>
 </section>
-<section class="slide" data-id="the-action" data-transition="fade" data-stagger="cascade" data-bg="light" data-speaker-notes="清楚说明一次活动的时间、地点和规模。约50名是参与人数估计，本次为两小时体验，不是长期课程。">
+<section class="slide" data-id="the-action" data-transition="fade" data-stagger="cascade" data-bg="light" data-speaker-notes="清楚说明一次活动的时间、地点和规模。合作学校提出希望小学生学到新的东西；可补充双方如何沟通并安排活动。实际参与约50人，高于原先估计约30人。若现场调整过分组或棋具安排，请由组员说明具体做法。">
   <div class="slide-content">
     <div class="event-layout">
       <div class="event-copy">
@@ -533,10 +551,12 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
         <span class="event-quote magic-nowrap-phrase" data-magic-id="meet-go">遇见围棋</span>
         <div class="event-date">2026 年 11 月 11 日　13:30—15:30</div>
         <div class="event-facts">
-          <div class="event-fact"><strong>约 50 名</strong><span>学生参与体验</span></div>
+          <div class="event-fact"><strong>30 → 约 50</strong><span>原先预估约 30 人，实际约 50 人参与</span></div>
           <div class="event-fact"><strong>2 小时</strong><span>校园活动时段</span></div>
         </div>
         <p class="team-line">合作学校：二条路建华华小<br>带队老师：延胜老师　·　行动组员：8 位</p>
+        <p class="school-expectation"><span>合作期待</span>希望小学生能学到新的东西</p>
+        <p class="event-review"><b>复盘与下次准备</b>　实际人数比预估多约 20 人；下一次应更早确认人数，并预留棋具与分组空间。</p>
       </div>
       <div class="rule-board" data-magic-id="rule-board" aria-label="活动中的围棋棋盘示意">
         <span class="rule-stone black s1"></span><span class="rule-stone white s2"></span><span class="rule-stone black s3"></span>
@@ -570,7 +590,7 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
     </div>
   </div>
 </section>
-<section class="slide" data-id="activity-in-practice" data-transition="fade" data-stagger="cascade" data-bg="light" data-speaker-notes="讲述活动如何从讲解走到实战。强调照片是现场记录，不把照片本身当作成效证据。">
+<section class="slide" data-id="activity-in-practice" data-transition="fade" data-stagger="cascade" data-bg="light" data-speaker-notes="讲述活动如何从讲解走到实战。强调照片是现场记录，不把照片本身当作成效证据。可由实际指导的组员补充当时怎么教、学生怎么回应。">
   <div class="slide-content">
     <div class="activity-layout">
       <div class="activity-copy">
@@ -596,25 +616,38 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
     </div>
   </div>
 </section>
-<section class="slide album-slide" data-id="activity-album" data-transition="scale-in" data-stagger="cascade" data-bg="light" data-speaker-notes="用照片快速带过现场：开场、互动、练习、指导、合影。提醒听众这是过程记录，停在合影后再转入学生原声。">
+<section class="slide album-slide" data-id="activity-album" data-transition="scale-in" data-stagger="cascade" data-bg="light" data-speaker-notes="照片相册快速翻过，不逐张讲解。强调照片记录的是活动过程，停在最后一张合影后转入一张具体的指导现场。">
   <div class="slide-content">
     <div class="album-intro">
-      <div><p class="kicker red">活动相册 · 二条路建华华小</p><h2>把这一天，一页页翻开</h2></div>
+      <div><p class="kicker red">活动照片 · 现场记录</p><h2>把这一天，一页页翻开</h2></div>
       <p>2026.11.11　／　校园体验记录</p>
     </div>
     <div class="album-spread">
       <div class="album-side album-left">
-        <figure class="album-print print-1"><img src="./assets/opening.jpg" alt="学生听讲围棋介绍"><figcaption><b>开场</b><span>认识围棋</span></figcaption></figure>
-        <figure class="album-print print-2"><img src="./assets/questions.jpg" alt="学生举手参与课堂互动" data-magic-id="activity-highlight"><figcaption><b>互动</b><span>认真提问</span></figcaption></figure>
-        <figure class="album-print print-3"><img src="./assets/play-together.jpg" alt="学生围坐棋盘共同体验"><figcaption><b>初体验</b><span>一起落子</span></figcaption></figure>
-        <figure class="album-print print-4"><img src="./assets/mentor-guidance.jpg" alt="组员在棋盘边指导学生"><figcaption><b>指导</b><span>边下边想</span></figcaption></figure>
+        <figure class="album-print print-1"><img src="./assets/questions.jpg" alt="学生举手参与课堂互动" data-magic-id="activity-highlight"><figcaption><b>回应</b><span>举手参与</span></figcaption></figure>
       </div>
       <div class="album-side album-right">
-        <figure class="album-print print-5"><img src="./assets/go-board.jpg" alt="活动棋盘上的黑白对弈"><figcaption><b>专注</b><span>观察棋局</span></figcaption></figure>
-        <figure class="album-print print-6"><img src="./assets/small-group.jpg" alt="学生在小组中练习围棋"><figcaption><b>思考</b><span>寻找下一手</span></figcaption></figure>
+        <figure class="album-print print-2"><img src="./assets/play-together.jpg" alt="学生围坐棋盘共同体验"><figcaption><b>体验</b><span>亲手尝试</span></figcaption></figure>
         <figure class="album-print print-last"><img src="./assets/group-photo.jpg" alt="参与活动的师生合影" data-magic-id="group-photo"><figcaption><b>合影</b><span>一起留下的记录</span></figcaption></figure>
       </div>
       <div class="album-cover" aria-hidden="true"><div class="album-cover-frame"></div><div class="album-spine"></div><div class="album-cover-seal">黑　白</div><p>围棋体验<strong>活动相册</strong></p><small>二条路建华华小 · 2026</small></div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-id="guidance-moment" data-transition="rise" data-stagger="cascade" data-bg="light" data-speaker-notes="学生在活动中问过：下次是什么时候？请当时负责这桌的组员补充一个真实细节：学生问了什么、你如何引导、哪一刻让你印象最深。没有确认的细节不要代学生或校方发言。">
+  <div class="slide-content">
+    <div class="photo-story-layout">
+      <figure class="photo-story-frame">
+        <img src="./assets/mentor-guidance.jpg" alt="两位组员俯身在棋盘旁，与学生一起进行围棋练习">
+        <figcaption><span>现场记录</span><b>组员在棋盘旁指导学生</b></figcaption>
+      </figure>
+      <div class="photo-story-copy">
+        <p class="kicker red">一个问题，让活动有了下一步</p>
+        <h2>学生问：<br>“下次是什么时候？”</h2>
+        <p class="deck-lead">这张照片记录了组员与学生围在棋盘边练习的时刻。活动中，一位学生问起下一次什么时候举行；“希望再来”的反馈，也让我们看见学生对继续接触围棋的期待。</p>
+        <blockquote>一次体验之后，<br>还要为下一次留下入口。</blockquote>
+        <div class="photo-story-tags"><span>学生提问</span><i></i><span>即时反馈</span><i></i><span>继续学习</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -650,7 +683,7 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
           <div class="evidence-fact"><strong>30 份</strong><span>回收反馈表</span></div>
           <div class="evidence-fact"><strong>约 50 名</strong><span>学生参加体验</span></div>
         </div>
-        <p class="evidence-source">数据来自活动团队提供的反馈表摘要。90%反映学生继续学习或参与类似活动的意愿，不代表长期学习成效。</p>
+        <p class="evidence-source">数据来自活动团队提供的反馈表摘要；本次共收回 30 份。90%反映学生继续学习或参加类似活动的意愿，不代表长期学习成效；统计分母将按问卷原表核对。</p>
       </div>
     </div>
   </div>
@@ -660,8 +693,8 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
     <div class="meaning-layout">
       <div class="meaning-stat">
         <p class="kicker red">一个即时的兴趣信号</p>
-        <div class="evidence-number" data-magic-id="continue-interest">90<span>%</span></div>
-        <p>愿意继续接触，意味着这次体验留下了兴趣。</p>
+        <div class="meaning-mark" aria-hidden="true">兴趣<br>萌芽</div>
+        <p>约九成反馈表达了继续学习或参与类似活动的意愿。它值得回应，也需要后续追踪。</p>
       </div>
       <div class="meaning-copy">
         <p class="kicker red">围棋之外，我们希望留下的</p>
@@ -672,7 +705,7 @@ body.ms-presenter-notes-resizing{cursor:ew-resize!important}
           <div class="meaning-value"><b>思考</b><span>比较不同的选择</span></div>
           <div class="meaning-value"><b>负责</b><span>理解行动的结果</span></div>
         </div>
-        <p class="source-note">专注与思考是本行动的学习目标；长期影响仍需后续观察。</p>
+        <p class="source-note">专注与思考是本行动的学习目标；当前数据反映即时意愿，长期影响仍需后续观察。</p>
         <p class="fine-copy magic-nowrap-phrase" data-magic-id="continuation-plan">后续学习机会</p>
       </div>
     </div>

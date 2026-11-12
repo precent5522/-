@@ -454,6 +454,8 @@ body.ms-presenter-shell-mode .ms-cursor-trail{display:none!important}
 body.ms-presenter-notes-left #ms-presenter-shell{grid-template-columns:minmax(280px,var(--ms-presenter-notes-width)) minmax(0,1fr);grid-template-areas:"notes stage" "notes console"}
 body.ms-presenter-notes-collapsed #ms-presenter-shell{grid-template-columns:minmax(0,1fr);grid-template-areas:"stage" "console"}
 .ms-presenter-stage{grid-area:stage;position:relative;min-width:0;min-height:220px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(238,242,247,0.12);border-radius:12px;background:#05070b;box-shadow:0 24px 80px rgba(0,0,0,0.36);overflow:hidden}
+.ms-presenter-pointer-dot{position:absolute;left:0;top:0;width:20px;height:20px;border:2px solid rgba(255,255,255,.96);border-radius:50%;background:#10100f;box-shadow:0 2px 10px rgba(0,0,0,.46);transform:translate(-50%,-50%);pointer-events:none;z-index:2;display:none}
+.ms-presenter-pointer-dot.is-pressed{transform:translate(-50%,-50%) scale(.72)}
 .ms-presenter-mirror{position:absolute;top:50%;left:50%;width:100%;height:100%;max-width:none;max-height:none;border:0;background:#05070b;display:block;transform:translate(-50%,-50%) scale(var(--ms-presenter-mirror-scale,1));transform-origin:center center;will-change:transform}
 .ms-presenter-overview{position:absolute;inset:0;display:none;opacity:0;visibility:hidden;pointer-events:none;background:rgba(6,8,13,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:3;transition:opacity 0.22s ease,visibility 0.22s ease}
 .ms-presenter-overview.showing{display:block}
@@ -3661,6 +3663,7 @@ fitSlideLayout(slides[cur]);
     document.addEventListener('pointermove',function(e){sendPointer(e,{down:e.buttons>0});},{passive:true});
     document.addEventListener('pointerdown',function(e){sendPointer(e,{down:true});},{passive:true});
     document.addEventListener('pointerup',function(e){sendPointer(e,{down:false});},{passive:true});
+    document.addEventListener('pointerleave',function(){postToPresenterShell({type:'ms-presenter-pointer-hide'});},{passive:true});
     document.addEventListener('click',function(e){
       e.preventDefault();
       e.stopPropagation();
@@ -3708,6 +3711,28 @@ fitSlideLayout(slides[cur]);
     var notePage=shell.querySelector('.ms-presenter-notes-page');
     var noteBody=shell.querySelector('.ms-presenter-notes-body');
     var shellState=presenterStateForIndex(cur);
+    var presenterPointerDot=document.createElement('div');
+    presenterPointerDot.className='ms-presenter-pointer-dot';
+    presenterPointerDot.setAttribute('aria-hidden','true');
+    mirrorStage.appendChild(presenterPointerDot);
+    var presenterPointerTimer=0;
+    function hidePresenterPointer(){
+      presenterPointerDot.style.display='none';
+      presenterPointerDot.classList.remove('is-pressed');
+    }
+    function showPresenterPointer(data){
+      if(!shellState||!shellState.status||!shellState.status.cursorVisible){hidePresenterPointer();return;}
+      var frameRect=mirrorFrame.getBoundingClientRect();
+      var stageRect=mirrorStage.getBoundingClientRect();
+      var x=Math.max(0,Math.min(1,Number(data.xRatio)||0));
+      var y=Math.max(0,Math.min(1,Number(data.yRatio)||0));
+      presenterPointerDot.style.left=(frameRect.left-stageRect.left+x*frameRect.width)+'px';
+      presenterPointerDot.style.top=(frameRect.top-stageRect.top+y*frameRect.height)+'px';
+      presenterPointerDot.style.display='block';
+      presenterPointerDot.classList.toggle('is-pressed',!!(data.down||data.click));
+      clearTimeout(presenterPointerTimer);
+      if(data.click){presenterPointerTimer=setTimeout(function(){presenterPointerDot.classList.remove('is-pressed');},180);}
+    }
     var mirrorRetryCount=0;
     var mirrorLoadingCheckCount=0;
     var mirrorHealthTimer=null;
@@ -4221,6 +4246,7 @@ fitSlideLayout(slides[cur]);
         viewport:presenterViewportForState(state),
         status:presenterStatusForIndex(idx,state.status)
       };
+      if(!shellState.status.cursorVisible)hidePresenterPointer();
       if(noteTitle)noteTitle.textContent=shellState.heading||shellState.title||MS_UI.presenter_notes;
       if(notePage)notePage.textContent=shellState.slide+' / '+shellState.slideCount;
       if(pageCurrent)pageCurrent.textContent=String(shellState.slide);
@@ -4402,7 +4428,12 @@ fitSlideLayout(slides[cur]);
         return;
       }
       if(data.type==='ms-presenter-pointer'){
+        showPresenterPointer(data);
         postPresenterShellToMain(data);
+        return;
+      }
+      if(data.type==='ms-presenter-pointer-hide'){
+        hidePresenterPointer();
       }
     });
     document.addEventListener('keydown',function(e){
